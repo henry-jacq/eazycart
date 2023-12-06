@@ -4,8 +4,7 @@
 {% include 'layouts/head.html' %}
 
 <body>
-
-    {% include 'layouts/header.html' %} {% block body %} {% endblock %} {% include 'layouts/js_includes.html' %}
+    {% if header_inc != False: %} {% include 'layouts/header.html' %} {% endif %} {% block body %} {% endblock %} {% include 'layouts/js_includes.html' %}
 
 
 </body>
