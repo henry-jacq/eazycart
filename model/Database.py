@@ -81,6 +81,9 @@ class Database:
     def delete(self, table, condition):
         query = f"DELETE FROM {table} WHERE {condition}"
         self.execute_query(query)
+
+    def exec_raw(self, query):
+        self.execute_query(query)
         
     def __del__(self):
         self.close_conn()
