@@ -15,7 +15,7 @@ Eazycart is a minimalistic and simple online shopping system that utilizes Oracl
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/eazycart.git
+   git clone https://github.com/henry-jacq/eazycart.git
    cd eazycart
    ```
 
