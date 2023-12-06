@@ -25,7 +25,13 @@ Eazycart is a minimalistic and simple online shopping system that utilizes Oracl
     pip install -r requirements.txt
     ```
 
-3. Run the application
+3. Setup the application
+
+    ```bash
+    python setup.py
+    ```
+
+4. Run the application
 
     ```bash
     python app.py
