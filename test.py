@@ -3,9 +3,12 @@ from model.Auth import Auth
 
 auth = Auth()
 
-print(auth.create_user('Henry', 'Jacob', 'henry@gmail.com ', 'mypassword'))
+# print(auth.create_user('Henry', 'Jacob', 'henry@gmail.com ', 'mypassword'))
     
-# print(auth.login("test@example.com", "test"))
+if auth.login("test@example.com", "test"):
+    print("Successfully logged in")
+else:
+    print("Failed to login")
 
 # Example usage:
 # db = Database()

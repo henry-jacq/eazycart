@@ -1,8 +1,16 @@
 import cx_Oracle
+from helper import get_db_credentials
 
 class Database:
     def __init__(self):
-        self.conn = self.__make_conn('', '', 'localhost', 1521, 'XE')
+        cred = get_db_credentials()
+        self.conn = self.__make_conn(
+            cred.get('username'), 
+            cred.get('password'), 
+            cred.get('host'), 
+            cred.get('port'), 
+            cred.get('service')
+        )
         self.cursor = self.conn.cursor()
 
     def __make_conn(self, username, password, host, port, service):
