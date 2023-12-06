@@ -1,7 +1,5 @@
-import re
-import os
-import json
-import secrets
+import re, os
+import json, secrets, string
 
 # Path Constants
 CONFIG_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -21,5 +19,5 @@ def is_strong_password(password: str):
     return len(password) >= 8
 
 def generate_random_bytes(length: int):
-    return secrets.token_bytes(length)
-
+    characters = string.ascii_letters + string.digits
+    return ''.join(secrets.choice(characters) for _ in range(length))
