@@ -1,5 +1,5 @@
 import cx_Oracle
-from helper import get_db_credentials
+from config.helper import get_db_credentials
 
 class Database:
     def __init__(self):
@@ -81,4 +81,7 @@ class Database:
     def delete(self, table, condition):
         query = f"DELETE FROM {table} WHERE {condition}"
         self.execute_query(query)
+        
+    def __del__(self):
+        self.close_conn()
 

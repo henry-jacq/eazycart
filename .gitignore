@@ -1,6 +1,7 @@
 env/
-__pycache__/
-model/__pycache__
-database/db.py
-config.json
 test.py
+database/db.py
+config/config.json
+__pycache__/
+model/__pycache__/
+config/__pycache__/
