@@ -14,7 +14,7 @@ class Auth:
     def login(self, email, password):
         result = self.db.select(self.table, "*", f"email = '{email}' AND password = '{password}'")
         if result is not None and result[3] == email and result[4] == password:
-            return True
+            return result
         return False
     
     def mail_exists(self, email):
