@@ -1,0 +1,111 @@
+{% extends 'base.html' %} {% block body %}
+
+<div class="container my-5">
+    <label class="mb-3"><a href="/" class="text-decoration-none text-body-tertiary">Home</a> - Cart</label>
+    <h4 class="fw-semibold fs-3">Cart</h4>
+    <div>
+        <p class="lead text-muted">You have 6 items in your cart.</p>
+        <p class="lead text-muted">For the checkout, <a href="/checkout">click here</a>.</p>
+    </div>
+    <div class="mb-5 row">
+        <div class="pe-xl-5 col-lg-8">
+            <div class="cart mb-5">
+                <div class="cart-body">
+                    {% for _ in range(1, 6): %}
+                    <div class="cart-item">
+                        <div class="d-flex align-items-center text-start text-md-center row">
+                            <div class="col-md-5 col-12"><a class="cart-remove close mt-3 d-md-none" href="#"><svg aria-hidden="true"
+                                        focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 "
+                                        role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
+                                        <path fill="currentColor"
+                                            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+                                        </path>
+                                    </svg></a>
+                                <div class="d-flex align-items-center"><a href="/tops-blouses/white-tee"><span
+                                            style="box-sizing: border-box; display: inline-block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;"><span
+                                                style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;"><img
+                                                    alt="" aria-hidden="true" src="https://dummyimage.com/150x200/000/fff"
+                                                    style="display: block; max-width: 100%; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;"></span><img
+                                                alt="product" src="https://dummyimage.com/150x200/000/fff" decoding="async"
+                                                data-nimg="intrinsic" class="cart-item-img"
+                                                style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+                                                srcset="https://dummyimage.com/150x200/000/fff"><noscript></noscript></span></a>
+                                    <div class="cart-title text-start"><a class="text-dark link-animated" href="/tops-blouses/white-tee"><strong>White Tee</strong></a><br><span class="text-muted text-sm">Size: Large</span><br><span class="text-muted text-sm">Colour:
+                                            Green</span></div>
+                                </div>
+                            </div>
+                            <div class="mt-4 mt-md-0 col-md-7 col-12">
+                                <div class="align-items-center  row">
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="d-md-none text-muted col-6">Price per item</div>
+                                            <div class="text-end text-md-center col-md-12 col-6">$40</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="align-items-center row">
+                                            <div class="text-muted d-md-none col-sm-9 col-7">Quantity</div>
+                                            <div class="col-md-12 col-sm-3 col-5">
+                                                <div class="d-flex align-items-center"><button type="button" class="items-decrease btn btn-items">-</button><input type="text" class="text-center border-0 border-md input-items form-control" value="1"><button type="button" class="items-increase btn btn-items">+</button></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="d-md-none text-muted col-6">Total price</div>
+                                            <div class="text-end text-md-center col-md-12 col-6">$40.00</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-none d-md-block text-center col-2"><a class="cart-remove text-muted" href="#"><svg
+                                                class="svg-icon w-2rem h-2rem svg-icon-light">
+                                                <use xlink:href="#close-1"></use>
+                                            </svg></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="d-flex justify-content-between flex-column flex-lg-row mb-5 mb-lg-0">
+                <a role="button" tabindex="0" href="/category-full" class="btn btn-outline-primary rounded-0"><i class="bi bi-arrow-left me-2"></i>Continue Shopping</a>
+                <a role="button" tabindex="0" href="#" class="btn btn-outline-primary rounded-0"><i class="bi bi-arrow-repeat"></i>Update cart</a>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="mb-5 card shadow">
+                <div class="card-header">
+                    <h6 class="my-2">Order Summary</h6>
+                </div>
+                <div class="py-4 card-body">
+                    <p class="text-muted text-sm">Shipping and additional costs are calculated based on values you have entered.
+                    </p>
+                    <table class="table card-text">
+                        <tbody>
+                            <tr>
+                                <th class="py-4">Order Subtotal </th>
+                                <td class="py-4 text-end text-muted">$200.00</td>
+                            </tr>
+                            <tr>
+                                <th class="py-4">Shipping and handling</th>
+                                <td class="py-4 text-end text-muted"> $10.00</td>
+                            </tr>
+                            <tr>
+                                <th class="py-4">Tax</th>
+                                <td class="py-4 text-end text-muted">$0.00</td>
+                            </tr>
+                            <tr>
+                                <th class="pt-4 border-0">Total</th>
+                                <td class="pt-4 border-0 text-end h3 fw-normal">$210.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="overflow-hidden p-0 card-footer">
+                    <div class="d-grid"><a role="button" tabindex="0" href="/checkout1" class="py-3 btn btn-outline-primary border-0 rounded-top-0">Proceed to Checkout <i class="bi bi-arrow-right"></i></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

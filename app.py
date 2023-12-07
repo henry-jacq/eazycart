@@ -7,9 +7,10 @@ app.secret_key = "eazycart"
 
 @app.route("/")
 def index():
-    if session.get('user') == None:
-        return redirect(url_for('login_page')) 
-    return render_template("index.html", page_name="Home", user_data=session.get('user'))
+    if session['user'] == None:
+        return redirect(url_for('login_page'))
+    
+    return render_template("index.html", page_name="Home", userData=session['user'], products=wp.get_products())
 
 @app.route("/login", methods=['POST', 'GET'])
 def login_page():
@@ -19,9 +20,9 @@ def login_page():
         email = request.form['email']
         password = request.form['pass']
         res = wp.validate_credentials(email, password)
-        if res:
+        if res != False:
             session['user'] = res
-            return redirect(url_for("index", user_data=res))
+            return redirect(url_for("index"))
         else:
             return render_template("login.html", err_msg="Invalid Credentials", header_inc=False, page_name="Login")
     else:
@@ -48,6 +49,34 @@ def register_page():
 def logout():
     session.clear()
     return redirect(url_for("login_page"))
+
+@app.route("/cart", methods=["GET", "POST"])
+def cart():
+    if request.method == "POST":
+        pass
+    else:
+        return render_template("cart.html", page_name="Cart")
+
+@app.route("/orders", methods=["GET", "POST"])
+def orders():
+    if request.method == "POST":
+        pass
+    else:
+        return render_template("orders.html", page_name="Orders")
+
+@app.route("/wishlist", methods=["GET", "POST"])
+def wishlist():
+    if request.method == "POST":
+        pass
+    else:
+        return render_template("wishlist.html", page_name="Wishlist")
+
+@app.route("/checkout", methods=["GET", "POST"])
+def checkout():
+    if request.method == "POST":
+        pass
+    else:
+        return render_template("wishlist.html", page_name="Wishlist")
 
 if __name__=="__main__":
     app.run(debug=True)
