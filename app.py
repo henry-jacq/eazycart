@@ -24,7 +24,7 @@ def login_page():
             session['user'] = res
             return redirect(url_for("index"))
         else:
-            return render_template("login.html", err_msg="Invalid Credentials", header_inc=False, page_name="Login")
+            return render_template("login.html", err_msg="Invalid credentials!", header_inc=False, page_name="Login")
     else:
         return render_template("login.html", err_msg=None, header_inc=False, page_name="Login")
 
@@ -39,9 +39,9 @@ def register_page():
         password = request.form['pass']
         res = wp.create_customer(fname, lname, email, password)
         if res:
-            return redirect(url_for("get_name", name=request.form['pass']))
+            return redirect(url_for("login_page"))
         else:
-            return render_template("register.html", err_msg="Failed to register", header_inc=False, page_name="Register")
+            return render_template("register.html", err_msg="Failed to register!", header_inc=False, page_name="Register")
     else:
         return render_template("register.html", err_msg=None, header_inc=False, page_name="Register")
 
