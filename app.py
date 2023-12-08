@@ -76,7 +76,7 @@ def checkout():
     if request.method == "POST":
         pass
     else:
-        return render_template("wishlist.html", page_name="Wishlist")
+        return render_template("checkout.html", page_name="Checkout")
 
 if __name__=="__main__":
     app.run(debug=True)
