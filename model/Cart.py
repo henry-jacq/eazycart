@@ -22,14 +22,14 @@ class Cart:
     
     # Add item to cart
     def add_item(self, cart_id, product_id, quantity):
-        if self.item_exists(cart_id, product_id) != True:
+        if self.item_exists(cart_id, product_id) == False:
             result = self.db.insert(self.table2, [cart_id, product_id, quantity], sequence="cart_item_seq.NEXTVAL")
             return result
         return False
 
-    def remove_item(self, cart_id, product_id, quantity):
-        if self.item_exists(cart_id, product_id) != False:
-            result = self.db.insert(self.table2, [cart_id, product_id, quantity], sequence="cart_item_seq.NEXTVAL")
+    def remove_item(self, cart_id, product_id):
+        if self.item_exists(cart_id, product_id) == True:
+            result = self.db.delete(self.table2, f"cart_id = {cart_id} AND product_id = {product_id}")
             return result
         return False
 
