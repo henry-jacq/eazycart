@@ -69,7 +69,11 @@ class Database:
         
         try:
             self.execute_query(query)
-            return self.commit()
+            new_id = self.cursor.var(cx_Oracle.NUMBER)
+            if self.commit() == None:
+                return new_id.getvalue()
+            else:
+                return False
         except Exception as e:
             print(e) and exit(1)
         
@@ -77,13 +81,19 @@ class Database:
         set_str = ", ".join(f"{key} = {value}" for key, value in set_values.items())
         query = f"UPDATE {table} SET {set_str} WHERE {condition}"
         self.execute_query(query)
+        if self.commit():
+            return True
+        return False
 
     def delete(self, table, condition):
         query = f"DELETE FROM {table} WHERE {condition}"
         self.execute_query(query)
+        if self.commit():
+            return True
+        return False
 
     def exec_raw(self, query):
-        self.execute_query(query)
+        return self.execute_query(query)
         
     def __del__(self):
         self.close_conn()
