@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, jsonify, render_template, request, redirect, url_for, session
 from config import wrapper as wp
 
 app = Flask(__name__)
@@ -77,6 +77,27 @@ def checkout():
         pass
     else:
         return render_template("checkout.html", page_name="Checkout")
+
+@app.route("/api/cart/add", methods=["POST"])
+def add_to_cart():
+    if request.method == "POST":
+        data = request.get_json()
+        customer_id = session['user'][0]  # Assuming 'user' is a key in the session
+        product_id = data['product_id']
+        product_qty = data['product_qty']
+        result = wp.add_item_to_cart(customer_id, product_id, product_qty)
+        if result:
+            return jsonify({"message": True})
+        return jsonify({"message": False})
+
+@app.route("/api/cart/remove", methods=["POST"])
+def remove_from_cart():
+    if request.method == "POST":
+        data = request.get_json()
+        customer_id = session['user'][0]  # Assuming 'user' is a key in the session
+        product_id = data['product_id']
+        result = wp.remove_from_cart(customer_id, product_id)
+        return jsonify({"message": result})
 
 if __name__=="__main__":
     app.run(debug=True)
