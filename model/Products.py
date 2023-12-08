@@ -10,5 +10,22 @@ class Products:
         new_list = []
         for i in result:
             new_list.append(list(i))
-
         return new_list
+    
+    def get_product_qty(self, product_id):
+        result = self.db.select(self.table, "stock_quantity", f"product_id = {product_id}")
+        if result is not None:
+            return result
+        return False
+
+    def add_product(self, name, description, quantity, price):
+        if not self.product_exists(name):
+            result = self.db.insert(self.table, [name, price, quantity, description], sequence="product_seq.NEXTVAL")
+            return result
+        return False
+
+    def product_exists(self, name):
+        result = self.db.select(self.table, "*", f"name = '{name}'")
+        if result is not None:
+            return True
+        return False
