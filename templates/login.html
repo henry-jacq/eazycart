@@ -5,7 +5,7 @@
         <div class="py-3 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
             {% if err_msg != None: %}
             <div class="alert alert-danger alert-dismissible fade show">
-                <i class="bi bi-exclamation-circle me-2"></i><b class="fw-semibold">Invalid credentials!</b> Please try again.
+                <i class="bi bi-exclamation-circle me-2"></i><b class="fw-semibold">{{err_msg}}</b> Please try again.
                 <button type="button" class="btn-close shadow-none" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             {% endif %}
