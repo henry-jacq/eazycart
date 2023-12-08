@@ -23,8 +23,8 @@ class Cart:
     # Add item to cart
     def add_item(self, cart_id, product_id, quantity):
         if self.item_exists(cart_id, product_id) == False:
-            result = self.db.insert(self.table2, [cart_id, product_id, quantity], sequence="cart_item_seq.NEXTVAL")
-            return result
+            self.db.insert(self.table2, [cart_id, product_id, quantity], sequence="cart_item_seq.NEXTVAL")
+            return True
         return False
 
     def remove_item(self, cart_id, product_id):
