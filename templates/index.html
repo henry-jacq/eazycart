@@ -1,26 +1,53 @@
 {% extends 'base.html' %} {% block body %}
 <div class="container my-5">
-    <label class="mb-3"><a href="/" class="text-decoration-none text-body-tertiary">Home</a> - Products</label>
-    <h4 class="fw-semibold fs-3">Products</h4>
-    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    <div class="row flex-lg-row-reverse align-items-center bg-body-tertiary my-5 p-5 g-3 rounded-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+            <img src="{{ url_for('static', filename='cover.svg') }}" class="d-block mx-lg-auto img-fluid" alt="" width="500" height="400" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+            <h4 class="display-5 mb-3">Hello {{userData[1]}}!</h4>
+            <p class="fs-4"><label class="ms-5"></label>Dive into a personalized shopping experience with Eazycart. Discover exclusive deals and tailored recommendations just for you. Your one-stop destination for seamless shopping. Don't miss out on member-only perks
+                and special offers - because you deserve the best. Happy browsing!</p>
+        </div>
+    </div>
+    <h3 class="fw-normal fs-3">Store</h3>
+    <hr class="mb-4">
+    <div class="row gx-3 gx-lg-4 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
         {% for p in products %}
-        <div class="col mb-5">
-            <div class="card h-100 border">
-                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-                <div class="card-body p-4">
+        <div class="col mb-3">
+            <div class="card h-100 border shadow">
+                <img class="img-fluid h-50 rounded" src="{{ url_for('static', filename='products/' + p[6]) }}" alt="{{p[6]}}">
+                <div class="card-body px-4">
                     <div class="text-center">
                         <h5 class="fw-bolder">{{p[1]}}</h5>
-                        Price: ₹{{p[2]}}
-                        <label>{{p[4]}}</label>
+                        <p class="fw-semibold">Price: ₹{{p[2]}}</p>
+                        <label class="text-start">{{p[4]}}</label>
                     </div>
                 </div>
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                    {% if p[3] > 15: %}
+                    <label class="text-success">In stock</label> {% elif p[3]
+                    < 15 %} <label class="text-danger">Only {{p[3]}} stocks left!</label>
+                        {% endif %}
+                        <p class="text-start mt-2">Category: <label class="fw-semibold">{{p[5]}}</label></p>
+                        <div class="d-flex">
+                            <input class="form-control w-50 me-2" type="number" value="1">
+                            <a role="button" class="btn btn-outline-secondary w-100" data-id="{{p[0]}}"><i class="bi bi-cart-plus me-2"></i>Add to cart</a>
+                        </div>
+                        <a role="button" class="btn btn-outline-secondary d-block mt-2" data-id="{{p[0]}}"><i class="bi bi-suit-heart me-2"></i>Add to Wishlist</a>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-5 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <img src="{{ url_for('static', filename='eazycart-logo.svg') }}" width="30" height="24">
+            </a>
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2023 Eazycart, Inc</span>
+        </div>
+    </footer>
 </div>
 
 
