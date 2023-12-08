@@ -10,7 +10,7 @@ def index():
     if session['user'] == None:
         return redirect(url_for('login_page'))
     
-    return render_template("index.html", page_name="Home", userData=session['user'], products=wp.get_products())
+    return render_template("index.html", page_name="Home", userData=session['user'], products=wp.get_products(), inCart=wp.product_in_cart(session['user'][0]))
 
 @app.route("/login", methods=['POST', 'GET'])
 def login_page():

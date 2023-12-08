@@ -31,3 +31,11 @@ def remove_from_cart(customer_id: int, product_id: int):
     if c.cart_exists(customer_id):
         return c.remove_item(c.get_cart_id(customer_id), product_id)
     return False
+
+def product_in_cart(customer_id: int):
+    c = Cart()
+    res = c.get_items_by_cart_id(c.get_cart_id(customer_id))
+    new_list = []
+    for _ in res:
+        new_list.append(_[2])
+    return new_list
