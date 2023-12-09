@@ -7,7 +7,7 @@ app.secret_key = "eazycart"
 
 @app.route("/")
 def index():
-    if session['user'] == None:
+    if session.get('user') == None:
         return redirect(url_for('login_page'))
     
     return render_template("index.html", page_name="Home", userData=session['user'], products=wp.get_products(), inCart=wp.product_in_cart(session['user'][0]))
