@@ -9,8 +9,10 @@ app.secret_key = "eazycart"
 def index():
     if session.get('user') == None:
         return redirect(url_for('login_page'))
-    
-    return render_template("index.html", page_name="Home", userData=session['user'], products=wp.get_products(), inCart=wp.product_in_cart(session['user'][0]))
+
+    inCart = wp.product_in_cart(session['user'][0])
+    # Can't add the product quantity
+    return render_template("index.html", page_name="Home", userData=session['user'], products=wp.get_products(), inCart=inCart)
 
 @app.route("/login", methods=['POST', 'GET'])
 def login_page():

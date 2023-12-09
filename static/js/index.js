@@ -1,13 +1,10 @@
 $('.btn-add-cart').on('click', function(e) {
-    quantity = $(this).prev().val();
     product_id = $(this).attr('data-id');
 
     var data = {
         "product_id": parseInt(product_id),
-        "product_qty": parseInt(quantity)
+        "product_qty": 1
     };
-
-    console.log(data);
 
     if ($(this).children().hasClass('bi-cart-plus')) {
         $(this).html('');
