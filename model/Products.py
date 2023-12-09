@@ -12,6 +12,13 @@ class Products:
             new_list.append(list(i))
         return new_list
     
+    def get_products_by_id(self, product_id):
+        result = self.db.select(self.table, "*", f"product_id = {product_id}",fetchAll=True)
+        new_list = []
+        for i in result:
+            new_list.append(list(i))
+        return new_list[0]
+    
     def get_product_qty(self, product_id):
         result = self.db.select(self.table, "stock_quantity", f"product_id = {product_id}")
         if result is not None:

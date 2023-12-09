@@ -39,3 +39,14 @@ def product_in_cart(customer_id: int):
     for _ in res:
         new_list.append(_[2])
     return new_list
+
+def get_cart_items(customer_id: int):
+    pids = product_in_cart(customer_id)
+    p = Products()
+    products_list = []
+    
+    for pid in pids:
+        products_list.append(p.get_products_by_id(pid))    
+
+    return products_list
+    

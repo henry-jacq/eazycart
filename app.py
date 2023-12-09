@@ -57,7 +57,8 @@ def cart():
     if request.method == "POST":
         pass
     else:
-        return render_template("cart.html", page_name="Cart")
+        items = wp.get_cart_items(session['user'][0])
+        return render_template("cart.html", page_name="Cart", cartItems=items)
 
 @app.route("/orders", methods=["GET", "POST"])
 def orders():
