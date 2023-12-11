@@ -25,25 +25,28 @@
                                 </div>
                             </div>
                             <div class="mt-4 mt-md-0 col-md-7 col-12">
-                                <div class="align-items-center  row">
-                                    <div class="col-md-3">
+                                <div class="align-items-center row">
+                                    <div class="col-md-3 price-per-item-section">
                                         <div class="row">
                                             <div class="d-md-none text-muted col-6">Price per item</div>
-                                            <div class="text-end text-md-center col-md-12 col-6">₹ {{item[2]}}</div>
+                                            <div class="text-end text-md-center col-md-12 col-6">₹ <label class="price-per-item">{{item[2]}}</label></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 quantity-section">
                                         <div class="align-items-center row">
                                             <div class="text-muted d-md-none col-sm-9 col-7">Quantity</div>
                                             <div class="col-md-12 col-sm-3 col-5">
-                                                <div class="d-flex align-items-center"><button type="button" class="items-decrease btn btn-items">-</button><input type="text" class="text-center border-0 border-md input-items form-control" value="1"><button type="button" class="items-increase btn btn-items">+</button></div>
+                                                <div class="d-flex align-items-center">
+                                                    <button type="button" class="items-decrease btn btn-items">-</button>
+                                                    <label class="text-center border-0 border-md input-items form-control" data-max="{{item[3]}}">1</label>
+                                                    <button type="button" class="items-increase btn btn-items">+</button></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 total-price-section">
                                         <div class="row">
                                             <div class="d-md-none text-muted col-6">Total price</div>
-                                            <div class="text-end text-md-center col-md-12 col-6">₹ {{item[2]}}</div>
+                                            <div class="text-end text-md-center col-md-12 col-6">₹ <label class="total-item-price">{{item[2]}}</label></div>
                                         </div>
                                     </div>
                                     <div class="d-none d-md-block text-center col-2">
