@@ -48,6 +48,43 @@ $('.btn-add-cart').on('click', function(e) {
     }
 });
 
+// Remove from cart
+$('.remove-from-cart').on('click', function(e) {
+    itemName = $(this).parents('.product-price-section').prev().find('.product-name').html();
+    pid = $(this).attr('data-id');
+    $this = $(this).parents('.cart-item')
+    d = new Dialog('Remove from cart', 'Are you sure you want to remove the <b>' + itemName + '</b> from the cart?');
+    d.setButtons([{
+            'name': "Cancel",
+            "class": "btn-secondary",
+            "onClick": function(event) {
+                $(event.data.modal).modal('hide');
+            }
+        },
+        {
+            'name': "Remove",
+            "class": "btn-danger",
+            "onClick": function(event) {
+                $.ajax({
+                    url: "/api/cart/remove",
+                    type: "POST",
+                    contentType: "application/json", // Set the Content-Type header
+                    data: JSON.stringify({ "product_id": parseInt(pid) }),
+                    success: function() {
+                        $this.remove();
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+
+                $(event.data.modal).modal('hide')
+            }
+        }
+    ]);
+    d.show();
+})
+
 // Increase count of items
 $('.items-increase').click(function(e) {
     c_qty = parseInt($(this).prev().html());
