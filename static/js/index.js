@@ -8,41 +8,63 @@ $('.btn-add-cart').on('click', function(e) {
     };
 
     if ($(this).children().hasClass('bi-cart-plus')) {
+        $this = $(this);
+        $this.html('');
+        $this.html('<i class="bi bi-check2 me-2"></i>Added to cart');
+        if ($this.hasClass('btn-outline-secondary')) {
+            $this.removeClass('btn-outline-secondary');
+            $this.addClass('btn-secondary')
+        }
         $.ajax({
             url: "/api/cart/add",
             type: "POST",
             contentType: "application/json", // Set the Content-Type header
             data: JSON.stringify(data),
             success: function() {
-                $(this).html('');
-                $(this).html('<i class="bi bi-check2 me-2"></i>Added to cart');
-                if ($(this).hasClass('btn-outline-secondary')) {
-                    $(this).removeClass('btn-outline-secondary');
-                    $(this).addClass('btn-secondary')
+                $this.html('');
+                $this.html('<i class="bi bi-check2 me-2"></i>Added to cart');
+                if ($this.hasClass('btn-outline-secondary')) {
+                    $this.removeClass('btn-outline-secondary');
+                    $this.addClass('btn-secondary')
                 }
-                $(this).prev().attr('readonly', 'true');
             },
             error: function(error) {
-                console.error(error);
+                $this.html('');
+                $this.html('<i class="bi bi-cart-plus me-2"></i>Add to cart');
+                if ($this.hasClass('btn-secondary')) {
+                    $this.removeClass('btn-secondary');
+                    $this.addClass('btn-outline-secondary')
+                }
             }
         });
     } else {
+        $this = $(this);
+        $this.html('');
+        $this.html('<i class="bi bi-cart-plus me-2"></i>Add to cart');
+        if ($this.hasClass('btn-secondary')) {
+            $this.removeClass('btn-secondary');
+            $this.addClass('btn-outline-secondary')
+        }
         $.ajax({
             url: "/api/cart/remove",
             type: "POST",
             contentType: "application/json", // Set the Content-Type header
             data: JSON.stringify(data),
             success: function() {
-                $(this).html('');
-                $(this).html('<i class="bi bi-cart-plus me-2"></i>Add to cart');
-                if ($(this).hasClass('btn-secondary')) {
-                    $(this).removeClass('btn-secondary');
-                    $(this).addClass('btn-outline-secondary')
+                $this.html('');
+                $this.html('<i class="bi bi-cart-plus me-2"></i>Add to cart');
+                if ($this.hasClass('btn-secondary')) {
+                    $this.removeClass('btn-secondary');
+                    $this.addClass('btn-outline-secondary')
                 }
-                $(this).prev().removeAttr('readonly')
             },
-            error: function(error) {
-                console.error(error);
+            error: function() {
+                $this.html('');
+                $this.html('<i class="bi bi-check2 me-2"></i>Added to cart');
+                if ($this.hasClass('btn-outline-secondary')) {
+                    $this.removeClass('btn-outline-secondary');
+                    $this.addClass('btn-secondary')
+                }
             }
         });
     }
