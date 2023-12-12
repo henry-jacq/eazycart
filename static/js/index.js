@@ -133,3 +133,38 @@ $('.items-decrease').click(function(e) {
     }
     $(this).next().html(c_qty);
 });
+
+// Update cart quantity
+$('.btn-update-cart').on('click', function(e) {
+    e.preventDefault();
+    var $this = $(this);
+    var data = [];
+
+    $('.cart-item').each(function() {
+        var productId = $(this).data('product-id');
+        var quantity = $(this).find('.product-quantity').text();
+        data.push({
+            product_id: productId,
+            qty: quantity
+        });
+    });
+
+    var oldHtml = $this.html();
+    var spinner = `<div class="spinner-border spinner-border-sm text-body me-2" role="status"></div>`
+    $this.html(spinner + 'Updating...');
+    $this.attr('disabled', true);
+    $.ajax({
+        url: "/api/cart/update",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function() {
+            $this.html(oldHtml);
+            $this.removeAttr('disabled')
+        },
+        error: function() {
+            $this.html(oldHtml);
+            $this.removeAttr('disabled')
+        }
+    });
+})

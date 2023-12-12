@@ -50,3 +50,7 @@ def get_cart_items(customer_id: int):
 
     return products_list
     
+def update_cart_items(customer_id, cart_data):
+    c = Cart()
+    cart_id = c.get_cart_id(customer_id)
+    return c.change_qty(cart_id, cart_data)

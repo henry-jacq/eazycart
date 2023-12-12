@@ -12,7 +12,7 @@
                 <div class="cart-body">
                     {% if cartItems|length > 0 %}
                     <hr> {% endif %} {% for item in cartItems: %}
-                    <div class="cart-item my-3">
+                    <div class="cart-item my-3" data-product-id="{{item[0]}}">
                         <div class="d-flex align-items-center text-start text-md-center row">
                             <div class="col-md-5 col-12 product-info-section">
                                 <a class="cart-remove close mt-3 d-md-none" href="#"></a>
@@ -38,7 +38,7 @@
                                             <div class="col-md-12 col-sm-3 col-5">
                                                 <div class="d-flex align-items-center">
                                                     <button type="button" class="items-decrease btn btn-items">-</button>
-                                                    <label class="text-center border-0 border-md input-items form-control" data-max="{{item[3]}}">1</label>
+                                                    <label class="text-center border-0 border-md product-quantity form-control" data-max="{{item[3]}}">1</label>
                                                     <button type="button" class="items-increase btn btn-items">+</button></div>
                                             </div>
                                         </div>
@@ -79,7 +79,7 @@
             <div class="d-flex justify-content-between flex-column flex-lg-row mb-5 mb-lg-0 mt-auto">
                 {% if cartItems|length > 0 %}
                 <a role="button" tabindex="0" href="/" class="btn btn-outline-primary rounded-0"><i class="bi bi-arrow-left me-2"></i>Continue Shopping</a>
-                <a role="button" tabindex="0" href="#" class="btn btn-outline-primary rounded-0"><i class="bi bi-arrow-repeat me-2"></i>Update cart</a> {% endif %}
+                <button role="button" tabindex="0" href="#" class="btn btn-primary btn-update-cart rounded-0"><i class="bi bi-arrow-repeat me-2"></i>Update cart</button> {% endif %}
             </div>
         </div>
         {% if cartItems|length > 0 %}
@@ -95,19 +95,19 @@
                         <tbody>
                             <tr>
                                 <th class="py-4">Order Subtotal </th>
-                                <td class="py-4 text-end text-muted">$200.00</td>
+                                <td class="py-4 text-end text-muted">₹200.00</td>
                             </tr>
                             <tr>
                                 <th class="py-4">Shipping and handling</th>
-                                <td class="py-4 text-end text-muted"> $10.00</td>
+                                <td class="py-4 text-end text-muted"> ₹10.00</td>
                             </tr>
                             <tr>
                                 <th class="py-4">Tax</th>
-                                <td class="py-4 text-end text-muted">$0.00</td>
+                                <td class="py-4 text-end text-muted">₹0.00</td>
                             </tr>
                             <tr>
                                 <th class="pt-4 border-0">Total</th>
-                                <td class="pt-4 border-0 text-end h3 fw-normal">$210.00</td>
+                                <td class="pt-4 border-0 text-end h3 fw-normal">₹210.00</td>
                             </tr>
                         </tbody>
                     </table>

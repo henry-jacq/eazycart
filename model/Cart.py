@@ -34,11 +34,18 @@ class Cart:
         return False
 
     # Change quantity of item
-    def change_qty(self, cart_id, product_id, quantity):
-        if self.item_exists(cart_id, product_id) != False:
-            result = self.db.update(self.table2, {'quantity': quantity}, f"cart_id = {cart_id} AND product_id = {product_id}")
-            return True if result is not False else False
-        return False
+    def change_qty(self, cart_id, cart_data):
+        for item in cart_data:
+            quantity = item["qty"]
+            product_id = item["product_id"]
+            if self.item_exists(cart_id, product_id) != False:
+                result = self.db.update(self.table2, {'quantity': quantity}, f"cart_id = {cart_id} AND product_id = {product_id}")
+                if result is not False:
+                    continue
+                else:
+                    return False
+            return False
+        return True
 
     def create_cart(self, customer_id):
         if self.cart_exists(customer_id) != True:

@@ -101,6 +101,14 @@ def remove_from_cart():
         product_id = data['product_id']
         result = wp.remove_from_cart(customer_id, product_id)
         return jsonify({"message": result})
+    
+@app.route("/api/cart/update", methods=["POST"])
+def update_cart():
+    if request.method == "POST":
+        data = request.get_json()
+        customer_id = session['user'][0]
+        result = wp.update_cart_items(customer_id, data)
+        return jsonify({"message": result})
 
 if __name__=="__main__":
     app.run(debug=True)
