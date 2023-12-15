@@ -54,11 +54,12 @@ def logout():
 
 @app.route("/cart", methods=["GET", "POST"])
 def cart():
-    if request.method == "POST":
-        pass
-    else:
-        items = wp.get_cart_items(session['user'][0])
-        return render_template("cart.html", page_name="Cart", cartItems=items)
+    # Products in cart
+    cartItemsQty = wp.get_cart_list(session['user'][0])
+    
+    if request.method == "GET":
+        items = wp.get_cart_items_info(session['user'][0])
+        return render_template("cart.html", page_name="Cart", inCart=cartItemsQty, cartItems=items)
 
 @app.route("/orders", methods=["GET", "POST"])
 def orders():

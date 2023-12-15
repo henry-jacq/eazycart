@@ -33,14 +33,17 @@ def remove_from_cart(customer_id: int, product_id: int):
     return False
 
 def product_in_cart(customer_id: int):
-    c = Cart()
-    res = c.get_items_by_cart_id(c.get_cart_id(customer_id))
     new_list = []
-    for _ in res:
+    for _ in get_cart_list(customer_id):
         new_list.append(_[2])
     return new_list
 
-def get_cart_items(customer_id: int):
+def get_cart_list(customer_id: int):
+    c = Cart()
+    res = c.get_items_by_cart_id(c.get_cart_id(customer_id))
+    return res
+
+def get_cart_items_info(customer_id: int):
     pids = product_in_cart(customer_id)
     p = Products()
     products_list = []

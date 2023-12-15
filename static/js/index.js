@@ -159,8 +159,7 @@ $('.btn-update-cart').on('click', function(e) {
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function() {
-            $this.html(oldHtml);
-            $this.removeAttr('disabled')
+            location.reload();
         },
         error: function() {
             $this.html(oldHtml);

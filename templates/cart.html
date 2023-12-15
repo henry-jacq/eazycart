@@ -37,8 +37,8 @@
                                             <div class="text-muted d-md-none col-sm-9 col-7">Quantity</div>
                                             <div class="col-md-12 col-sm-3 col-5">
                                                 <div class="d-flex align-items-center">
-                                                    <button type="button" class="items-decrease btn btn-items">-</button>
-                                                    <label class="text-center border-0 border-md product-quantity form-control" data-max="{{item[3]}}">1</label>
+                                                    <button type="button" class="items-decrease btn btn-items">-</button> {% for i in inCart: %} {% if i[2] == item[0] %}
+                                                    <label class="text-center border-0 border-md product-quantity form-control" data-max="{{item[3]}}">{{i[3]}}</label> {% endif %} {% endfor %}
                                                     <button type="button" class="items-increase btn btn-items">+</button></div>
                                             </div>
                                         </div>
@@ -46,7 +46,10 @@
                                     <div class="col-md-3 total-price-section">
                                         <div class="row">
                                             <div class="d-md-none text-muted col-6">Total price</div>
-                                            <div class="text-end text-md-center col-md-12 col-6">₹ <label class="total-item-price">{{item[2]}}</label></div>
+                                            <div class="text-end text-md-center col-md-12 col-6">
+                                                {% for i in inCart: %} {% if i[2] == item[0] %} ₹
+                                                <label class="total-item-price">{{item[2]*i[3]}}</label> {% endif %} {% endfor %}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="d-none d-md-block text-center col-2">
