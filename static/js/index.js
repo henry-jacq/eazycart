@@ -1,4 +1,4 @@
-// Add to car
+// Add to cart
 $('.btn-add-cart').on('click', function(e) {
     product_id = $(this).attr('data-id');
 
@@ -94,6 +94,7 @@ $('.remove-from-cart').on('click', function(e) {
                     data: JSON.stringify({ "product_id": parseInt(pid) }),
                     success: function() {
                         $this.remove();
+                        updateOrderSummary()
                     },
                     error: function(error) {
                         console.error(error);
@@ -106,33 +107,6 @@ $('.remove-from-cart').on('click', function(e) {
     ]);
     d.show();
 })
-
-// Increase count of items
-$('.items-increase').click(function(e) {
-    c_qty = parseInt($(this).prev().html());
-    max = parseInt($(this).prev().attr('data-max'))
-    total_price_el = $(this).parents('.quantity-section').next().find('.total-item-price');
-    original_price = parseInt($(this).parents('.quantity-section').prev().find('.price-per-item').html())
-    if (max > c_qty) {
-        c_qty += 1;
-        new_price = original_price + parseInt(total_price_el.html())
-        total_price_el.html(new_price)
-    }
-    $(this).prev().html(c_qty);
-});
-
-// Decrease count of items
-$('.items-decrease').click(function(e) {
-    c_qty = parseInt($(this).next().html());
-    total_price_el = $(this).parents('.quantity-section').next().find('.total-item-price');
-    original_price = parseInt($(this).parents('.quantity-section').prev().find('.price-per-item').html())
-    if (c_qty > 1) {
-        c_qty -= 1;
-        new_price = parseInt(total_price_el.html()) - original_price
-        total_price_el.html(new_price)
-    }
-    $(this).next().html(c_qty);
-});
 
 // Update cart quantity
 $('.btn-update-cart').on('click', function(e) {
@@ -167,3 +141,53 @@ $('.btn-update-cart').on('click', function(e) {
         }
     });
 })
+
+// Increase count of items
+$('.items-increase').click(function(e) {
+    c_qty = parseInt($(this).prev().html());
+    max = parseInt($(this).prev().attr('data-max'))
+    total_price_el = $(this).parents('.quantity-section').next().find('.total-item-price');
+    original_price = parseInt($(this).parents('.quantity-section').prev().find('.price-per-item').html())
+    if (max > c_qty) {
+        c_qty += 1;
+        new_price = original_price + parseInt(total_price_el.html())
+        total_price_el.html(new_price)
+    }
+    $(this).prev().html(c_qty);
+    updateOrderSummary()
+});
+
+// Decrease count of items
+$('.items-decrease').click(function(e) {
+    c_qty = parseInt($(this).next().html());
+    total_price_el = $(this).parents('.quantity-section').next().find('.total-item-price');
+    original_price = parseInt($(this).parents('.quantity-section').prev().find('.price-per-item').html())
+    if (c_qty > 1) {
+        c_qty -= 1;
+        new_price = parseInt(total_price_el.html()) - original_price
+        total_price_el.html(new_price)
+    }
+    $(this).next().html(c_qty);
+    updateOrderSummary()
+});
+
+// Update order summary details
+function updateOrderSummary() {
+    var prices = $('.total-item-price').map(function() {
+        return parseFloat($(this).text());
+    }).get();
+
+    let sum = 0;
+
+    for (let i = 0; i < prices.length; i++) {
+        sum += prices[i];
+    }
+
+    shipping_cost = parseInt($('.cart-shipping-cost').text());
+    $('.cart-subtotal').text(sum);
+    $('.cart-total').text(sum + shipping_cost);
+}
+
+if ($('.cart-subtotal')) {
+    updateOrderSummary()
+}

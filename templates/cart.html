@@ -11,6 +11,7 @@
             <div class="cart mb-5">
                 <div class="cart-body">
                     {% if cartItems|length > 0 %}
+                    <label class="form-text">Update cart after making changes!</label>
                     <hr> {% endif %} {% for item in cartItems: %}
                     <div class="cart-item my-3" data-product-id="{{item[0]}}">
                         <div class="d-flex align-items-center text-start text-md-center row">
@@ -98,11 +99,11 @@
                         <tbody>
                             <tr>
                                 <th class="py-4">Order Subtotal </th>
-                                <td class="py-4 text-end text-muted">₹200.00</td>
+                                <td class="py-4 text-end text-muted">₹<label class="cart-subtotal">0</label></td>
                             </tr>
                             <tr>
                                 <th class="py-4">Shipping and handling</th>
-                                <td class="py-4 text-end text-muted"> ₹10.00</td>
+                                <td class="py-4 text-end text-muted">₹<label class="cart-shipping-cost">10.00</label></td>
                             </tr>
                             <tr>
                                 <th class="py-4">Tax</th>
@@ -110,7 +111,7 @@
                             </tr>
                             <tr>
                                 <th class="pt-4 border-0">Total</th>
-                                <td class="pt-4 border-0 text-end h3 fw-normal">₹210.00</td>
+                                <td class="pt-4 border-0 text-end h3 fw-normal">₹<label class="cart-total">0</label></td>
                             </tr>
                         </tbody>
                     </table>
