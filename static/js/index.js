@@ -187,7 +187,3 @@ function updateOrderSummary() {
     $('.cart-subtotal').text(sum);
     $('.cart-total').text(sum + shipping_cost);
 }
-
-// if ($('.cart-subtotal')) {
-//     updateOrderSummary()
-// }
