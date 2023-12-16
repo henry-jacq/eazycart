@@ -3,8 +3,196 @@
 <div class="container my-5">
     <label class="fs-5 mb-3"><a href="/" class="text-decoration-none text-body-tertiary">Home</a> - Checkout</label>
     <h4 class="fw-semibold display-6">Checkout</h4>
-    <div>
-        <p class="lead text-muted">You're in checkout page.</p>
+    <div class="mb-4">
+        <p class="lead text-muted">Please fill in your details below.</p>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 mb-3">
+            <div class="card shadow px-3 py-4">
+                <form class="row checkout-form">
+                    <div class="customer-details mb-3">
+                        <h5 class="fw-normal">Invoice Address</h5>
+                        <hr>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="invoice-street" class="form-label">Street</label>
+                                <input type="email" class="form-control" id="invoice-street">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="invoice-country" class="form-label">Country</label>
+                                <input type="text" class="form-control" id="invoice-country">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="invoice-city" class="form-label">City</label>
+                                <input type="text" class="form-control" id="invoice-city">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="delivery-method mb-3">
+                        <h5 class="fw-normal mt-2 mb-3">Delivery method</h5>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div id="dhl-card" class="card mb-4 active">
+                                    <div class="card-body" role="button">
+                                        <p class="m-0">
+                                            <input id="dhl-payment" class="form-check-input me-1" type="radio">
+                                            <label class="form-label fw-semibold" for="dhl-payment">DHL</label>
+                                            <p class="form-label text-body-tertiary m-0">Secure and swift payments for seamless shipping.
+                                            </p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div id="dtdc-card" class="card mb-4">
+                                    <div class="card-body" role="button">
+                                        <p class="m-0">
+                                            <input id="dtdc-payment" class="form-check-input me-1" type="radio">
+                                            <label class="form-label fw-semibold" for="dtdc-payment">DTDC</label>
+                                            <p class="form-label text-body-tertiary m-0">Easy payment and convenient courier services.</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-method mb-4">
+                        <h5 class="fw-normal mb-3">Payment method</h5>
+                        <hr>
+                        <div class="accordion accordion-flush" id="paymentAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button bg-transparent text-body collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    Card payment
+                                </button>
+                                </h2>
+                                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#paymentAccordion">
+                                    <div class="accordion-body row">
+                                        <div class="col-md-6 mb-2">
+                                            <label for="inputEmail4" class="form-label">Name on card</label>
+                                            <input type="email" class="form-control" id="inputEmail4">
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <label for="inputPassword4" class="form-label">Card number</label>
+                                            <input type="password" class="form-control" id="inputPassword4">
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <label for="inputCity" class="form-label">Expiry Date</label>
+                                            <input type="date" class="form-control" id="inputCity">
+                                        </div>
+                                        <div class="col-md-3 mb-2">
+                                            <label for="inputCvcCvv" class="form-label">CVC/CVV</label>
+                                            <input type="text" class="form-control" id="inputCvcCvv">
+                                        </div>
+                                        <div class="col-md-3 mb-2">
+                                            <label for="inputZip" class="form-label">Zip code</label>
+                                            <input type="number" class="form-control" id="inputZip">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button bg-transparent text-body collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                    Pay with Paypal
+                                </button>
+                                </h2>
+                                <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#paymentAccordion">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-check">
+                                                    <input name="pay-using-paypal" type="radio" id="payment-method-2" class="form-check-input">
+                                                    <label title="" for="payment-method-2" class="form-check-label">
+                                                    <span class="d-block h6 mt-1 mb-3">Pay with PayPal</span>
+                                                    <span class="text-muted text-sm">
+                                                        One morning,
+                                                        when Gregor Samsa woke from troubled dreams, he found himself transformed in
+                                                        his bed into a
+                                                        horrible vermin. He lay on his armour-like back, and if he lifted his head a
+                                                        little he could see
+                                                        his brown belly, slightly domed and divided by arches into stiff sections
+                                                    </span>
+                                                </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button bg-transparent text-body collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                    Pay on Delivery
+                                </button>
+                                </h2>
+                                <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#paymentAccordion">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-check">
+                                                    <input name="pay-on-delivery" type="radio" id="payment-method-3" class="form-check-input">
+                                                    <label for="payment-method-3" class="form-check-label">
+                                                    <span class="d-block h6 mt-1 mb-3">Pay on Delivery</span>
+                                                    <span class="text-muted text-sm">
+                                                        One morning,
+                                                        when Gregor Samsa woke from troubled dreams, he found himself transformed in
+                                                        his bed into a
+                                                        horrible vermin. He lay on his armour-like back, and if he lifted his head a
+                                                        little he could see
+                                                        his brown belly, slightly domed and divided by arches into stiff sections
+                                                    </span>
+                                                </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <a href="/checkout/review" class="btn btn-primary d-block" role="button">Review order<i class="bi bi-arrow-right ms-1"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="mb-5 card shadow">
+                <div class="card-header">
+                    <h6 class="my-2">Order Summary</h6>
+                </div>
+                <div class="py-4 card-body">
+                    <p class="text-muted text-sm">Shipping and additional costs are calculated based on values you have entered.
+                    </p>
+                    <table class="table card-text">
+                        <tbody>
+                            <tr>
+                                <th class="py-4">Order Subtotal </th>
+                                <td class="py-4 text-end text-muted">₹<label class="cart-subtotal">0</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="py-4">Shipping and handling</th>
+                                <td class="py-4 text-end text-muted">₹<label class="cart-shipping-cost">10.00</label></td>
+                            </tr>
+                            <tr>
+                                <th class="py-4">Tax</th>
+                                <td class="py-4 text-end text-muted">₹0.00</td>
+                            </tr>
+                            <tr>
+                                <th class="pt-4 border-0">Total</th>
+                                <td class="pt-4 border-0 text-end h3 fw-normal">₹<label class="cart-total">0</label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="overflow-hidden p-0 card-footer">
+                    <div class="d-grid"><a role="button" tabindex="0" href="/checkout" class="py-3 btn btn-outline-primary border-0 rounded-top-0">Proceed to Checkout <i
+                            class="bi bi-arrow-right"></i></a></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
