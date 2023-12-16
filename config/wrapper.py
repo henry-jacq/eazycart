@@ -43,6 +43,18 @@ def get_cart_list(customer_id: int):
     res = c.get_items_by_cart_id(c.get_cart_id(customer_id))
     return res
 
+def getOrderSummary(customer_id: int):
+    cartList = get_cart_list(customer_id)
+    products = get_cart_items_info(customer_id)
+    total_price = 0
+    for item in cartList:
+        for p in products:
+            if item[2] == p[0]:
+                # Product price with no of quantity
+                total_price += p[2] * item[3]
+                
+    return total_price
+
 def get_cart_items_info(customer_id: int):
     pids = product_in_cart(customer_id)
     p = Products()

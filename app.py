@@ -56,10 +56,11 @@ def logout():
 def cart():
     # Products in cart
     cartItemsQty = wp.get_cart_list(session['user'][0])
+    total = wp.getOrderSummary(session['user'][0])
     
     if request.method == "GET":
         items = wp.get_cart_items_info(session['user'][0])
-        return render_template("cart.html", page_name="Cart", inCart=cartItemsQty, cartItems=items)
+        return render_template("cart.html", page_name="Cart", inCart=cartItemsQty, cartItems=items, cart_total=total)
 
 @app.route("/orders", methods=["GET", "POST"])
 def orders():
