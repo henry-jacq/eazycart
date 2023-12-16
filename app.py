@@ -78,10 +78,17 @@ def wishlist():
 
 @app.route("/checkout", methods=["GET", "POST"])
 def checkout():
-    if request.method == "POST":
-        pass
-    else:
-        return render_template("checkout.html", page_name="Checkout")
+    if request.method == "GET":
+        total = wp.getOrderSummary(session['user'][0])
+        return render_template("checkout.html", page_name="Checkout", cart_total=total)
+    
+@app.route("/checkout/review", methods=["GET", "POST"])
+def reviewOrder():
+    if request.method == "GET":
+        total = wp.getOrderSummary(session['user'][0])
+        items = wp.get_cart_items_info(session['user'][0])
+        cartItemsQty = wp.get_cart_list(session['user'][0])
+        return render_template("review.html", page_name="Order Review", order_total=total, products=items, qty=cartItemsQty)
 
 @app.route("/api/cart/add", methods=["POST"])
 def add_to_cart():
