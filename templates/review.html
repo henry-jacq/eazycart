@@ -11,11 +11,11 @@
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
                     <thead>
-                        <tr class="fs-5 text-center">
-                            <th class="fw-normal" scope="col">Item</th>
-                            <th class="fw-normal" scope="col">Price</th>
-                            <th class="fw-normal" scope="col">Quantity</th>
-                            <th class="fw-normal" scope="col">Total</th>
+                        <tr class="fs-5 text-start">
+                            <th class="fw-normal text-sm-center" scope="col">Item</th>
+                            <th class="fw-normal text-sm-center" scope="col">Price</th>
+                            <th class="fw-normal text-sm-center" scope="col">Quantity</th>
+                            <th class="fw-normal text-sm-center" scope="col">Total</th>
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
@@ -26,7 +26,7 @@
                                     <div class="col-md-3">
                                         <img alt="{{p[6]}}" src="{{ url_for('static', filename='products/' + p[6]) }}" width="80" height="80">
                                     </div>
-                                    <div class="col-md-8 col-sm-3 text-start text-wrap">
+                                    <div class="col-md-8 col-sm-3 my-auto text-start text-wrap">
                                         <label class="my-auto">{{p[1]}}</label>
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
         <div class="col-lg-8">
             <div class="d-flex align-items-center justify-content-between">
                 <a href="/checkout" class="btn btn-primary" type="button"><i class="bi bi-arrow-left me-2"></i>Back to checkout</a>
-                <button class="btn btn-primary" type="button">Place order</button>
+                <button class="btn btn-primary" type="button"><i class="bi bi-cart-check me-2"></i>Place order</button>
             </div>
         </div>
     </div>
