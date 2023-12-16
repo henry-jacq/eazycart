@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block body %}
 
 <div class="container my-5">
-    <label class="fs-5 mb-3"><a href="/" class="text-decoration-none text-body-tertiary">Home</a> - Shopping Cart</label>
+    <label class="fs-5 mb-3"><a href="/" class="text-decoration-none text-body-tertiary">Home</a> - <a href="/cart" class="text-decoration-none text-body">Shopping Cart</a></label>
     <h4 class="fw-semibold display-6">Shopping Cart</h4>
     <div>
         <p class="lead text-muted">You have {{cartItems|length}} items in your cart.</p>

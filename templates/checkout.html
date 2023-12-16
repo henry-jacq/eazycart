@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block body %}
 
 <div class="container my-5">
-    <label class="fs-5 mb-3"><a href="/" class="text-decoration-none text-body-tertiary">Home</a> - Checkout</label>
+    <label class="fs-5 mb-3"><a href="/" class="text-decoration-none text-body-tertiary">Home</a> - <a href="/checkout" class="text-decoration-none text-body">Checkout</a></label>
     <h4 class="fw-semibold display-6">Checkout</h4>
     <div class="mb-4">
         <p class="lead text-muted">Please fill in your details below.</p>
@@ -35,7 +35,7 @@
                             <div class="col-md-12 col-lg-6">
                                 <div id="dhl-card" class="card mb-4">
                                     <div class="card-body">
-                                        <input id="dhl-payment" class="form-check-input me-1" type="radio" name="delivery-method">
+                                        <input id="dhl-payment" class="form-check-input me-1" type="radio" name="delivery-method" checked>
                                         <label class="form-label fw-semibold" for="dhl-payment">DHL</label>
                                         <p class="form-label text-body-tertiary m-0">Secure and swift payments for seamless shipping.
                                         </p>
@@ -93,7 +93,7 @@
                         <tbody>
                             <tr>
                                 <th class="py-4">Order Subtotal </th>
-                                <td class="py-4 text-end text-muted">₹<label class="cart-subtotal">0</label>
+                                <td class="py-4 text-end text-muted">₹<label class="cart-subtotal">{{cart_total}}</label>
                                 </td>
                             </tr>
                             <tr>
@@ -106,14 +106,10 @@
                             </tr>
                             <tr>
                                 <th class="pt-4 border-0">Total</th>
-                                <td class="pt-4 border-0 text-end h3 fw-normal">₹<label class="cart-total">0</label></td>
+                                <td class="pt-4 border-0 text-end h3 fw-normal">₹<label class="cart-total">{{cart_total + 10}}</label></td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="overflow-hidden p-0 card-footer">
-                    <div class="d-grid"><a role="button" tabindex="0" href="/checkout" class="py-3 btn btn-outline-primary border-0 rounded-top-0">Proceed to Checkout <i
-                            class="bi bi-arrow-right"></i></a></div>
                 </div>
             </div>
         </div>
