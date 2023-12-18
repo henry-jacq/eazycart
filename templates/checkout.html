@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-lg-8 mb-3">
             <div class="card shadow px-3 py-4">
-                <form class="row checkout-form">
+                <form id="checkout-form" class="row">
                     <div class="customer-details mb-3">
                         <h5 class="fw-normal">Invoice Address</h5>
                         <hr>
@@ -39,7 +39,7 @@
                             <div class="col-md-12 col-lg-6">
                                 <div id="dhl-card" class="card mb-4">
                                     <div class="card-body">
-                                        <input id="dhl-payment" class="form-check-input me-1" type="radio" name="delivery-method" checked>
+                                        <input id="dhl-payment" class="form-check-input me-1" type="radio" name="delivery-method" value="dhl" checked>
                                         <label class="form-label fw-semibold" for="dhl-payment">DHL</label>
                                         <p class="form-label text-body-tertiary m-0">Secure and swift payments for seamless shipping.
                                         </p>
@@ -49,7 +49,7 @@
                             <div class="col-md-12 col-lg-6">
                                 <div id="dtdc-card" class="card mb-4">
                                     <div class="card-body">
-                                        <input id="dtdc-payment" class="form-check-input me-1" type="radio" name="delivery-method">
+                                        <input id="dtdc-payment" class="form-check-input me-1" type="radio" name="delivery-method" value="dtdc">
                                         <label class="form-label fw-semibold" for="dtdc-payment">DTDC</label>
                                         <p class="form-label text-body-tertiary m-0">Easy payment and convenient courier services.
                                         </p>
@@ -64,17 +64,17 @@
                         <hr>
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="cardRadio" checked>
+                                <input class="form-check-input me-1" type="radio" name="payment-method" value="card" id="cardRadio" checked>
                                 <label class="form-check-label stretched-link" for="cardRadio">Card payment</label>
                                 <p class="form-text ms-4 m-0">VISA, Mastercard and American Express</p>
                             </li>
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="paypalRadio">
+                                <input class="form-check-input me-1" type="radio" name="payment-method" value="paypal" id="paypalRadio">
                                 <label class="form-check-label stretched-link" for="paypalRadio">PayPal</label>
                                 <p class="form-text ms-4 m-0">Pay using PayPal</p>
                             </li>
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="podRadio">
+                                <input class="form-check-input me-1" type="radio" name="payment-method" value="pod" id="podRadio">
                                 <label class="form-check-label stretched-link" for="podRadio">Pay on Delivery</label>
                                 <p class="form-text ms-4 m-0">Cash, UPI and Cards accepted.</p>
                             </li>
@@ -84,7 +84,7 @@
                 <hr>
                 <div class="d-flex align-items-center justify-content-between">
                     <a href="/cart" class="btn btn-primary" role="button"><i class="bi bi-arrow-left me-2"></i>Back to cart</a>
-                    <a href="/checkout/review" class="btn btn-primary" role="button">Review order<i class="bi bi-arrow-right ms-2"></i></a>
+                    <a href="/checkout/review" class="btn btn-primary btn-review-order disabled" role="button">Review order<i class="bi bi-arrow-right ms-2"></i></a>
                 </div>
             </div>
         </div>
