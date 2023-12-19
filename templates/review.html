@@ -78,7 +78,9 @@
         <div class="col-lg-8">
             <div class="d-flex align-items-center justify-content-between">
                 <a href="/checkout" class="btn btn-primary" type="button"><i class="bi bi-arrow-left me-2"></i>Back to checkout</a>
-                <a href="/checkout/confirmed" class="btn btn-primary" type="button"><i class="bi bi-cart-check me-2"></i>Place order</a>
+                <form action="/checkout/confirmed" method="post">
+                    <button class="btn btn-primary" type="submit"><i class="bi bi-cart-check me-2"></i>Place order</button>
+                </form>
             </div>
         </div>
     </div>
