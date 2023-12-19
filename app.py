@@ -92,8 +92,11 @@ def reviewOrder():
     
 @app.route("/checkout/confirmed", methods=["GET", "POST"])
 def placeOrder():
-    if request.method == "GET":
-        return render_template("confirm.html", page_name="Order Confirmed", user=session['user'])
+    if request.method == "POST":
+        ans = wp.create_order(session['user'][0])
+        return render_template("confirm.html", page_name="Order Confirmed", user=session['user'], status=ans)
+    else:
+        return redirect(url_for("checkout"))
 
 @app.route("/api/cart/add", methods=["POST"])
 def add_to_cart():
