@@ -64,10 +64,11 @@ def cart():
 
 @app.route("/orders", methods=["GET", "POST"])
 def orders():
-    if request.method == "POST":
-        pass
+    if request.method == "GET":
+        orders = wp.get_customer_orders(session['user'][0])
+        return render_template("orders.html", page_name="Orders", orders=orders)
     else:
-        return render_template("orders.html", page_name="Orders")
+        return redirect(url_for('index'))
 
 @app.route("/wishlist", methods=["GET", "POST"])
 def wishlist():
