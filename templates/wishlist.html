@@ -4,8 +4,91 @@
     <label class="fs-5 mb-3"><a href="/" class="text-decoration-none text-body-tertiary">Home</a> - <a href="/wishlist" class="text-decoration-none text-body">Wishlist</a></label>
     <h4 class="fw-semibold display-6">Wishlist</h4>
     <div>
-        <p class="lead text-muted">You have 6 items in your wishlist.</p>
+        <p class="lead text-muted">You have {{wish|length}} items in your wishlist.</p>
     </div>
-
+    <div class="mb-5 row">
+        <div class="pe-xl-5 {% if wish|length == 0 %}my-5{% else %} col-lg-12 {% endif %}">
+            <div class="cart mb-5">
+                <div class="cart-body">
+                    {% if wish|length > 0 %}
+                    <hr> {% endif %} {% for item in wish: %}
+                    <div class="cart-item my-3" data-product-id="{{item[0]}}">
+                        <div class="d-flex align-items-center text-start text-md-center row">
+                            <div class="col-md-5 col-12 product-info-section">
+                                <a class="cart-remove close mt-3 d-md-none" href="#"></a>
+                                <div class="d-flex align-items-center">
+                                    <a href="/products/{{item[0]}}"><img alt="{{item[6]}}" src="{{ url_for('static', filename='products/' + item[6]) }}" width="80"> </a>
+                                    <div class="cart-title text-start ms-3">
+                                        <a class="text-body text-decoration-none" href="/products/{{item[0]}}"><strong
+                                                class="product-name">{{item[1]}}</strong>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 mt-md-0 col-md-7 col-12 product-price-section">
+                                <div class="align-items-center row">
+                                    <div class="col-md-3 price-per-item-section">
+                                        <div class="row">
+                                            <div class="d-md-none text-muted col-6">Price per item</div>
+                                            <div class="text-end text-md-center col-md-12 col-6">₹ <label class="price-per-item">{{item[2]}}</label></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 quantity-section">
+                                        <div class="align-items-center row">
+                                            <div class="text-muted d-md-none col-sm-9 col-7">Availability</div>
+                                            <div class="text-end text-md-center col-md-12 col-sm-3 col-5">
+                                                {% if item[3] > 15: %}
+                                                <label for=""><span class="badge bg-success">In stock</span></label> {% elif item[3]
+                                                < 15: %} <span class="badge bg-secondary">Only {{item[3]}} stocks left!</span>
+                                                    {% else: %}
+                                                    <span class="badge bg-danger">Out of stock!</span> {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 total-price-section">
+                                        <div class="row">
+                                            <div class="d-md-none text-muted col-6">Total price</div>
+                                            <div class="text-end text-md-center col-md-12 col-6">
+                                                <button class="btn btn-primary btn-sm" type="button">Add Cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-none d-md-block text-center col-2">
+                                        <a role="button" class="remove-from-wishlist text-muted btn" data-id="{{item[0]}}"><i
+                                                class="bi bi-x"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    {% endfor %} {% if wish|length == 0 %}
+                    <div class="my-3">
+                        <div class="d-flex align-items-center justify-content-center mb-3">
+                            <div class="empty-cart text-body-tertiary">
+                                <i class="bi bi-cart-x display-1"></i>
+                            </div>
+                            <div class="empty-cart-info text-body-tertiary ms-3 mt-3">
+                                <h4 class="fw-normal mb-1">Wishlist is empty</h4>
+                                <p class="lead">Add your favourites to wishlist!</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mt-4">
+                            <a role="button" class="btn btn-sm btn-outline-secondary rounded-0" href="/"><i
+                                    class="bi bi-arrow-left me-2"></i>Continue shopping</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% if wish|length > 0 %}
+        <div class="col-lg-8">
+            <a role="button" tabindex="0" href="/" class="btn btn-outline-primary"><i
+                    class="bi bi-arrow-left me-2"></i>Continue Shopping</a>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
