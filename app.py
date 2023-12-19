@@ -72,10 +72,13 @@ def orders():
 
 @app.route("/wishlist", methods=["GET", "POST"])
 def wishlist():
-    if request.method == "POST":
-        pass
+    wlItems = wp.get_wishlist_items(session['user'][0])
+    wishlist = wp.get_wishlist_items_info(session['user'][0])
+
+    if request.method == "GET":
+        return render_template("wishlist.html", page_name="Wishlist", items=wlItems, wish=wishlist)
     else:
-        return render_template("wishlist.html", page_name="Wishlist")
+        return redirect(url_for('index'))
 
 @app.route("/checkout", methods=["GET", "POST"])
 def checkout():
@@ -103,7 +106,7 @@ def placeOrder():
 def add_to_cart():
     if request.method == "POST":
         data = request.get_json()
-        customer_id = session['user'][0]  # Assuming 'user' is a key in the session
+        customer_id = session['user'][0]
         product_id = data['product_id']
         product_qty = data['product_qty']
         result = wp.add_item_to_cart(customer_id, product_id, product_qty)
@@ -115,7 +118,7 @@ def add_to_cart():
 def remove_from_cart():
     if request.method == "POST":
         data = request.get_json()
-        customer_id = session['user'][0]  # Assuming 'user' is a key in the session
+        customer_id = session['user'][0]
         product_id = data['product_id']
         result = wp.remove_from_cart(customer_id, product_id)
         return jsonify({"message": result})
@@ -126,6 +129,26 @@ def update_cart():
         data = request.get_json()
         customer_id = session['user'][0]
         result = wp.update_cart_items(customer_id, data)
+        return jsonify({"message": result})
+
+@app.route("/api/wishlist/add", methods=["POST"])
+def add_to_wishlist():
+    if request.method == "POST":
+        data = request.get_json()
+        customer_id = session['user'][0]
+        product_id = data['product_id']
+        result = wp.add_to_wishlist(customer_id, product_id)
+        if result:
+            return jsonify({"message": True})
+        return jsonify({"message": False})
+
+@app.route("/api/wishlist/remove", methods=["POST"])
+def remove_from_wishlist():
+    if request.method == "POST":
+        data = request.get_json()
+        customer_id = session['user'][0]
+        product_id = data['product_id']
+        result = wp.remove_from_wishlist(customer_id, product_id)
         return jsonify({"message": result})
 
 @app.route("/api/order/remove", methods=["POST"])
