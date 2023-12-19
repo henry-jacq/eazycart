@@ -12,10 +12,24 @@ class Order:
         order_id = self.db.call_func(
             'createOrder', [customer_id, date, status, amount]
         )
-        order_data = self.db.select(self.table1, ['*'], f"order_id = :1", [order_id])
-        order_data = list(order_data)
+        order_data = self.get_order(order_id)
         order_data[2] = order_data[2].strftime("%b %d, %Y")
         return order_data
+
+    def get_order(self, order_id: int):
+        data = self.db.select(self.table1, ['*'], f"order_id = :1", [order_id])
+        return list(data)
+    
+    def get_customer_orders(self, customer_id: int):
+        data = self.db.select(self.table1, ['*'], f"customer_id = :1", [customer_id], fetch_all=True)
+        if data is not None:
+            orders = []
+            for i in data:
+                i = list(i)
+                i[2] = i[2].strftime('%d/%m/%Y')
+                orders.append(i)
+            return orders
+        return False
 
     def order_exists(self, customer_id):
         result = self.db.select(self.table1, "*", f"customer_id = {customer_id}")

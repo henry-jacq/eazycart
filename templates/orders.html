@@ -14,28 +14,22 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
+            {% for order in orders %}
             <tr class="text-center">
-                <th scope="row"># 1421</th>
-                <td>28/11/2023</td>
-                <td>₹ 1542.00</td>
-                <td><span class="badge rounded-pill text-bg-danger">Pending</span>
+                <th scope="row"># {{order[0]}}</th>
+                <td>{{order[2]}}</td>
+                <td>₹ {{order[4]}}</td>
+                <td>
+                    {% if order[3] == 'Pending' %}
+                    <span class="badge rounded-pill text-bg-danger">{{order[3]}}</span> {% else %}
+                    <span class="badge rounded-pill text-bg-success">Delivered</span> {% endif %}
                 </td>
                 <td>
                     <a role="button" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></a>
                     <a role="button" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>
-            <tr class="text-center">
-                <th scope="row"># 2423</th>
-                <td>22/08/2023</td>
-                <td>₹ 4211.32</td>
-                <td><span class="badge rounded-pill text-bg-success">Delivered</span>
-                </td>
-                <td>
-                    <a role="button" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></a>
-                    <a role="button" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
-                </td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
