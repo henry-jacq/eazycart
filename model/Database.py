@@ -5,10 +5,10 @@ class Database:
     def __init__(self):
         cred = get_db_credentials()
         self.conn = self.__make_conn(
-            cred.get('username'), 
-            cred.get('password'), 
-            cred.get('host'), 
-            cred.get('port'), 
+            cred.get('username'),
+            cred.get('password'),
+            cred.get('host'),
+            cred.get('port'),
             cred.get('service')
         )
         self.cursor = self.conn.cursor()
@@ -18,15 +18,12 @@ class Database:
         connection = cx_Oracle.connect(username, password, dsn)
         return connection
 
-    def get_conn(self):
-        return self.conn
-    
-    def get_cursor(self):
-        return self.cursor
-    
-    def execute_query(self, query):
+    def execute_query(self, query, bind_variables=None):
         try:
-            self.cursor.execute(query)
+            if bind_variables:
+                self.cursor.execute(query, bind_variables)
+            else:
+                self.cursor.execute(query)
             return True
         except cx_Oracle.DatabaseError as e:
             print(f"Error executing query: {e}")
@@ -37,9 +34,56 @@ class Database:
 
     def fetch_all(self):
         return self.cursor.fetchall()
-    
+
     def commit(self):
-        return True if self.conn.commit() == None else False
+        try:
+            self.conn.commit()
+            return True
+        except cx_Oracle.DatabaseError as e:
+            print(f"Error committing transaction: {e}")
+            return False
+
+    def rollback(self):
+        try:
+            self.conn.rollback()
+            return True
+        except cx_Oracle.DatabaseError as e:
+            print(f"Error rolling back transaction: {e}")
+            return False
+
+    def insert(self, table, data):
+        columns = list(data.keys())
+        values = list(data.values())
+        placeholders = ', '.join([':' + str(i + 1) for i in range(len(values))])
+
+        query = f"INSERT INTO {table} ({', '.join(columns)}) VALUES ({placeholders})"
+        
+        if self.execute_query(query, values):
+            return self.commit()
+        return False
+
+    def update(self, table, set_values, condition, condition_values=None):
+        set_str = ', '.join([f"{key} = :{i + 1}" for i, (key, _) in enumerate(set_values.items())])
+        query = f"UPDATE {table} SET {set_str} WHERE {condition}"
+        
+        bind_variables = list(set_values.values())
+        if condition_values:
+            bind_variables.extend(condition_values)
+
+        if self.execute_query(query, bind_variables):
+            return self.commit()
+        return False
+
+    def delete(self, table, condition, values=None):
+        query = f"DELETE FROM {table} WHERE {condition}"
+        bind_variables = values if values else []
+        
+        if self.execute_query(query, bind_variables):
+            return self.commit()
+        return False
+
+    def exec_raw(self, query, bind_variables=None):
+        return self.execute_query(query, bind_variables)
 
     def close_conn(self):
         try:
@@ -49,52 +93,9 @@ class Database:
         except cx_Oracle.DatabaseError as e:
             print(f"Error closing connection: {e}")
             return False
-    
-    def select(self, table, fields, condition=None, fetchAll=False):
-        field_str = ", ".join(fields)
-        query = f"SELECT {field_str} FROM {table}"
-        if condition:
-            query += f" WHERE {condition}"
-        self.execute_query(query)
-        return self.fetch_one() if fetchAll == False else self.fetch_all()
 
-    def insert(self, table, values, sequence=None):
-        formatted_values = [f"'{value}'" if isinstance(value, str) else str(value) for value in values]
-        value_str = ", ".join(formatted_values)
+    def __enter__(self):
+        return self
 
-        if sequence is None:
-            query = f"INSERT INTO {table} VALUES ({value_str})"
-        else:
-            query = f"INSERT INTO {table} VALUES ({sequence}, {value_str})"
-        
-        try:
-            self.execute_query(query)
-            new_id = self.cursor.var(cx_Oracle.NUMBER)
-            if self.commit() == None:
-                return new_id.getvalue()
-            else:
-                return False
-        except Exception as e:
-            print(e) and exit(1)
-        
-    def update(self, table, set_values, condition):
-        set_str = ", ".join(f"{key} = {value}" for key, value in set_values.items())
-        query = f"UPDATE {table} SET {set_str} WHERE {condition}"
-        self.execute_query(query)
-        if self.commit():
-            return True
-        return False
-
-    def delete(self, table, condition):
-        query = f"DELETE FROM {table} WHERE {condition}"
-        self.execute_query(query)
-        if self.commit():
-            return True
-        return False
-
-    def exec_raw(self, query):
-        return self.execute_query(query)
-        
-    def __del__(self):
+    def __exit__(self, exc_type, exc_value, traceback):
         self.close_conn()
-
