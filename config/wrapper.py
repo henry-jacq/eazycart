@@ -2,6 +2,7 @@ from model.Auth import Auth
 from model.Products import Products
 from model.Cart import Cart
 from model.Order import Order
+from model.Wishlist import Wishlist
 from datetime import datetime
 
 # This contains wrapper functions for models
@@ -86,3 +87,37 @@ def remove_order(data):
 def get_customer_orders(customer_id: int):
     o = Order()
     return o.get_customer_orders(customer_id)
+
+def add_to_wishlist(customer_id: int, product_id: int):
+    w = Wishlist()
+    if not w.wishlist_exists(customer_id):
+        w.create_wishlist(customer_id)
+    res = w.add_item(w.get_wishlist_id(customer_id), product_id)
+    return res
+
+def remove_from_wishlist(customer_id: int, product_id: int):
+    w = Wishlist()
+    if w.wishlist_exists(customer_id):
+        return w.remove_item(w.get_wishlist_id(customer_id), product_id)
+    return False
+
+def get_wishlist_items(customer_id: int):
+    w = Wishlist()
+    res = w.get_wishlist_items_by_wid(w.get_wishlist_id(customer_id))
+    return res
+
+def product_in_wishlist(customer_id: int):
+    new_list = []
+    for _ in get_wishlist_items(customer_id):
+        new_list.append(_[2])
+    return new_list
+
+def get_wishlist_items_info(customer_id: int):
+    pids = product_in_wishlist(customer_id)
+    p = Products()
+    products_list = []
+    
+    for pid in pids:
+        products_list.append(p.get_products_by_id(pid))    
+
+    return products_list
