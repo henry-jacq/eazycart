@@ -1,6 +1,8 @@
 from model.Auth import Auth
 from model.Products import Products
 from model.Cart import Cart
+from model.Order import Order
+from datetime import datetime
 
 # This contains wrapper functions for models
 
@@ -69,3 +71,9 @@ def update_cart_items(customer_id, cart_data):
     c = Cart()
     cart_id = c.get_cart_id(customer_id)
     return c.change_qty(cart_id, cart_data)
+
+def create_order(customer_id: int):
+    o = Order()
+    return o.create_order(
+        customer_id, 'Pending', getOrderSummary(customer_id)
+    )
