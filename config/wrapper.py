@@ -77,3 +77,12 @@ def create_order(customer_id: int):
     return o.create_order(
         customer_id, 'Pending', getOrderSummary(customer_id)
     )
+
+def remove_order(data):
+    o = Order()
+    order_id = data['order_id']
+    return o.remove_order(order_id)
+
+def get_customer_orders(customer_id: int):
+    o = Order()
+    return o.get_customer_orders(customer_id)

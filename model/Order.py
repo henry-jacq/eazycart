@@ -31,6 +31,12 @@ class Order:
             return orders
         return False
 
+    def remove_order(self, order_id: int):
+        result = self.db.delete(self.table1, f"order_id = {order_id}")
+        if result is not None:
+            return True
+        return False
+
     def order_exists(self, customer_id):
         result = self.db.select(self.table1, "*", f"customer_id = {customer_id}")
         if result is not None:

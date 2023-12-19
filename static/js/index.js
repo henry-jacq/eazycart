@@ -214,3 +214,41 @@ if (window.location.pathname == '/checkout') {
         $('#checkout-form input').on('input', checkForm);
     });
 }
+
+if (window.location.pathname === '/orders') {
+    $('.btn-remove-order').on('click', function() {
+        var $this = $(this);
+        var oid = $this.data('id');
+        console.log("Removing order " + oid);
+        d = new Dialog('Remove Order', 'Want to remove order #' + oid + '?');
+        d.setButtons([{
+                'name': "Cancel",
+                "class": "btn-secondary",
+                "onClick": function(event) {
+                    $(event.data.modal).modal('hide');
+                }
+            },
+            {
+                'name': "Remove",
+                "class": "btn-danger",
+                "onClick": function(event) {
+                    $.ajax({
+                        url: "/api/order/remove",
+                        type: "POST",
+                        contentType: "application/json", // Set the Content-Type header
+                        data: JSON.stringify({ "order_id": parseInt(oid) }),
+                        success: function() {
+                            $this.parent().parent().remove();
+                        },
+                        error: function(error) {
+                            console.error(error);
+                        }
+                    });
+
+                    $(event.data.modal).modal('hide')
+                }
+            }
+        ]);
+        d.show();
+    })
+}

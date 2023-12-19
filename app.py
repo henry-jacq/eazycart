@@ -128,5 +128,12 @@ def update_cart():
         result = wp.update_cart_items(customer_id, data)
         return jsonify({"message": result})
 
+@app.route("/api/order/remove", methods=["POST"])
+def remove_order():
+    if request.method == "POST":
+        data = request.get_json()
+        result = wp.remove_order(data)
+        return jsonify({"message": result})
+
 if __name__=="__main__":
     app.run(debug=True)
