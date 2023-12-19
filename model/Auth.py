@@ -6,22 +6,27 @@ class Auth:
         self.table = 'customers'
     
     def create_user(self, fname, lname, email, password):
-        if self.mail_exists(email) == False:
-            result = self.db.insert(self.table, [fname, lname, email, password], sequence="auth_seq.NEXTVAL")
+        data = {
+            "first_name": fname, "last_name": lname, "email": email, "password": password
+        }
+        if not self.mail_exists(email):
+            result = self.db.insert(self.table, data)
             return result
         return False
         
     def login(self, email, password):
-        result = self.db.select(self.table, "*", f"email = '{email}' AND password = '{password}'")
-        if result is not None and result[3] == email and result[4] == password:
+        fields = ["*"]
+        condition = "email = :1 AND password = :2"
+        bind_variables = [email, password]
+        result = self.db.select(self.table, fields, condition, bind_variables)
+        print(result)
+        if result and result[3] == email and result[4] == password:
             return result
         return False
     
     def mail_exists(self, email):
-        result = self.db.select(self.table, "*", f"email = '{email}'")
-        if result is not None and result[3] == email:
-            return True
-        return False
-    
-        
-        
+        fields = ["*"]
+        condition = "email = :1"
+        bind_variables = [email]
+        result = self.db.select(self.table, fields, condition, bind_variables)
+        return result is not None

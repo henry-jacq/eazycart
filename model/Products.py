@@ -6,33 +6,34 @@ class Products:
         self.table = 'products'
 
     def get_products(self):
-        result = self.db.select(self.table, "*", fetchAll=True)
-        new_list = []
-        for i in result:
-            new_list.append(list(i))
-        return new_list
-    
+        fields = ["*"]
+        result = self.db.select(self.table, fields, fetch_all=True)
+        return [list(row) for row in result] if result else []
+
     def get_products_by_id(self, product_id):
-        result = self.db.select(self.table, "*", f"product_id = {product_id}",fetchAll=True)
-        new_list = []
-        for i in result:
-            new_list.append(list(i))
-        return new_list[0]
-    
+        fields = ["*"]
+        condition = "product_id = :1"
+        bind_variables = [product_id]
+        result = self.db.select(self.table, fields, condition, bind_variables, fetch_all=True)
+        return [list(row) for row in result][0] if result else None
+
     def get_product_qty(self, product_id):
-        result = self.db.select(self.table, "stock_quantity", f"product_id = {product_id}")
-        if result is not None:
-            return result
-        return False
+        fields = ["stock_quantity"]
+        condition = "product_id = :1"
+        bind_variables = [product_id]
+        result = self.db.select(self.table, fields, condition, bind_variables)
+        return result[0][0] if result else None
 
     def add_product(self, name, description, quantity, price):
+        data = {"name": name, "description": description, "quantity": quantity, "price": price}
         if not self.product_exists(name):
-            result = self.db.insert(self.table, [name, price, quantity, description], sequence="product_seq.NEXTVAL")
+            result = self.db.insert(self.table, data)
             return result
         return False
 
     def product_exists(self, name):
-        result = self.db.select(self.table, "*", f"name = '{name}'")
-        if result is not None:
-            return True
-        return False
+        fields = ["*"]
+        condition = "name = :1"
+        bind_variables = [name]
+        result = self.db.select(self.table, fields, condition, bind_variables)
+        return result is not None
