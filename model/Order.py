@@ -48,10 +48,3 @@ class Order:
         if result is not None:
             return result[0]
         return False
-    
-    # Add item to order items
-    def add_item(self, order_id, product_id, quantity, unit_price):
-        result = self.db.insert(self.table2, [order_id, product_id, quantity, unit_price], sequence="ORDER_ITEM_SEQ.NEXTVAL")
-        if result:
-            return True
-        return False
