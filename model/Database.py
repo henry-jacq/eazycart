@@ -51,6 +51,24 @@ class Database:
             print(f"Error rolling back transaction: {e}")
             return False
 
+    def select(self, table, fields="*", condition=None, bind_variables=None, fetch_all=False):
+        try:
+            field_str = ", ".join(fields)
+            query = f"SELECT {field_str} FROM {table}"
+            if condition:
+                query += f" WHERE {condition}"
+
+            self.execute_query(query, bind_variables)
+
+            if fetch_all:
+                return self.fetch_all()
+            else:
+                return self.fetch_one()
+
+        except cx_Oracle.DatabaseError as e:
+            print(f"Error in SELECT query: {e}")
+            return None
+
     def insert(self, table, data):
         columns = list(data.keys())
         values = list(data.values())
