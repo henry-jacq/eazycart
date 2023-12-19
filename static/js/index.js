@@ -75,7 +75,7 @@ $('.remove-from-cart').on('click', function(e) {
     itemName = $(this).parents('.product-price-section').prev().find('.product-name').html();
     pid = $(this).attr('data-id');
     $this = $(this).parents('.cart-item')
-    d = new Dialog('Remove from cart', 'Are you sure you want to remove the <b>' + itemName + '</b> from the cart?');
+    d = new Dialog('Remove from cart', 'Are you sure want to remove the <b>' + itemName + '</b> from the cart?');
     d.setButtons([{
             'name': "Cancel",
             "class": "btn-secondary",
@@ -170,6 +170,114 @@ $('.items-decrease').click(function(e) {
     $(this).next().html(c_qty);
     updateOrderSummary()
 });
+
+// Add to wishlist
+$('.btn-add-wishlist').on('click', function(e) {
+    product_id = $(this).attr('data-id');
+    var data = { "product_id": parseInt(product_id) };
+
+    if ($(this).children().hasClass('bi-suit-heart')) {
+        $this = $(this);
+        $this.html('');
+        $this.html('<i class="bi bi-suit-heart-fill me-2"></i>Added to wishlist');
+        if ($this.hasClass('btn-outline-secondary')) {
+            $this.removeClass('btn-outline-secondary');
+            $this.addClass('btn-secondary')
+        }
+        $.ajax({
+            url: "/api/wishlist/add",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function() {
+                $this.html('');
+                $this.html('<i class="bi bi-suit-heart-fill me-2"></i>Added to wishlist');
+                if ($this.hasClass('btn-outline-secondary')) {
+                    $this.removeClass('btn-outline-secondary');
+                    $this.addClass('btn-secondary')
+                }
+            },
+            error: function(error) {
+                $this.html('');
+                $this.html('<i class="bi bi-suit-heart me-2"></i>Add to wishlist');
+                if ($this.hasClass('btn-secondary')) {
+                    $this.removeClass('btn-secondary');
+                    $this.addClass('btn-outline-secondary')
+                }
+            }
+        });
+    } else {
+        $this = $(this);
+        $this.html('');
+        $this.html('<i class="bi bi-suit-heart me-2"></i>Add to wishlist');
+        if ($this.hasClass('btn-secondary')) {
+            $this.removeClass('btn-secondary');
+            $this.addClass('btn-outline-secondary')
+        }
+        $.ajax({
+            url: "/api/wishlist/remove",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function() {
+                $this.html('');
+                $this.html('<i class="bi bi-suit-heart me-2"></i>Add to wishlist');
+                if ($this.hasClass('btn-secondary')) {
+                    $this.removeClass('btn-secondary');
+                    $this.addClass('btn-outline-secondary')
+                }
+            },
+            error: function() {
+                $this.html('');
+                $this.html('<i class="bi bi-suit-heart-fill me-2"></i>Added to wishlist');
+                if ($this.hasClass('btn-outline-secondary')) {
+                    $this.removeClass('btn-outline-secondary');
+                    $this.addClass('btn-secondary')
+                }
+            }
+        });
+    }
+
+    console.log(product_id);
+
+});
+
+// Remove from wishlist
+$('.remove-from-wishlist').on('click', function(e) {
+    itemName = $(this).parents('.product-price-section').prev().find('.product-name').html();
+    pid = $(this).attr('data-id');
+    $this = $(this).parents('.cart-item')
+    d = new Dialog('Remove from wishlist', 'Are you sure want to remove the <b>' + itemName + '</b> from your wishlist?');
+    d.setButtons([{
+            'name': "Cancel",
+            "class": "btn-secondary",
+            "onClick": function(event) {
+                $(event.data.modal).modal('hide');
+            }
+        },
+        {
+            'name': "Remove",
+            "class": "btn-danger",
+            "onClick": function(event) {
+                $.ajax({
+                    url: "/api/wishlist/remove",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ "product_id": parseInt(pid) }),
+                    success: function() {
+                        $this.remove();
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+
+                $(event.data.modal).modal('hide')
+            }
+        }
+    ]);
+    d.show();
+})
 
 // Update order summary details
 function updateOrderSummary() {
