@@ -103,6 +103,10 @@ class Database:
     def exec_raw(self, query, bind_variables=None):
         return self.execute_query(query, bind_variables)
 
+    def call_func(self, func_name, params=[]):
+        val = self.cursor.callfunc(func_name, int, params)
+        return val
+
     def close_conn(self):
         try:
             self.cursor.close()
