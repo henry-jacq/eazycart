@@ -51,7 +51,7 @@ class Database:
             print(f"Error rolling back transaction: {e}")
             return False
 
-    def select(self, table, fields="*", condition=None, bind_variables=None, fetch_all=False):
+    def select(self, table, fields=['*'], condition=None, bind_variables=None, fetch_all=False):
         try:
             field_str = ", ".join(fields)
             query = f"SELECT {field_str} FROM {table}"
