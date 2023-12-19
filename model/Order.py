@@ -9,10 +9,13 @@ class Order:
         
     def create_order(self, customer_id, status, amount):
         date = datetime.now().strftime('%Y-%m-%d')
-        sql = f"INSERT INTO orders VALUES (ORDER_SEQ.NEXTVAL, {customer_id}, TO_DATE('{date}', 'YYYY-MM-DD'), '{status}', {amount})"
-        query = self.db.exec_raw(sql)
-        self.db.commit()      
-        return query
+        order_id = self.db.call_func(
+            'createOrder', [customer_id, date, status, amount]
+        )
+        order_data = self.db.select(self.table1, ['*'], f"order_id = :1", [order_id])
+        order_data = list(order_data)
+        order_data[2] = order_data[2].strftime("%b %d, %Y")
+        return order_data
 
     def order_exists(self, customer_id):
         result = self.db.select(self.table1, "*", f"customer_id = {customer_id}")
