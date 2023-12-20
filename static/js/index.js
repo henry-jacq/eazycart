@@ -328,16 +328,16 @@ if (window.location.pathname === '/orders') {
         var $this = $(this);
         var oid = $this.data('id');
         console.log("Removing order " + oid);
-        d = new Dialog('Remove Order', 'Want to remove order #' + oid + '?');
+        d = new Dialog('Cancel Order', 'Want to cancel order <b>#' + oid + '</b>?');
         d.setButtons([{
-                'name': "Cancel",
+                'name': "Dismiss",
                 "class": "btn-secondary",
                 "onClick": function(event) {
                     $(event.data.modal).modal('hide');
                 }
             },
             {
-                'name': "Remove",
+                'name': "Cancel order",
                 "class": "btn-danger",
                 "onClick": function(event) {
                     $.ajax({
@@ -347,6 +347,7 @@ if (window.location.pathname === '/orders') {
                         data: JSON.stringify({ "order_id": parseInt(oid) }),
                         success: function() {
                             $this.parent().parent().remove();
+                            location.reload();
                         },
                         error: function(error) {
                             console.error(error);
