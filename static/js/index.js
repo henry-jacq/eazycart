@@ -266,6 +266,7 @@ $('.remove-from-wishlist').on('click', function(e) {
                     data: JSON.stringify({ "product_id": parseInt(pid) }),
                     success: function() {
                         $this.remove();
+                        location.reload();
                     },
                     error: function(error) {
                         console.error(error);
