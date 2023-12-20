@@ -11,8 +11,8 @@ def index():
         return redirect(url_for('login_page'))
 
     inCart = wp.product_in_cart(session['user'][0])
-    # Can't add the product quantity
-    return render_template("index.html", page_name="Home", userData=session['user'], products=wp.get_products(), inCart=inCart)
+    wishlist = wp.product_in_wishlist(session['user'][0])
+    return render_template("index.html", page_name="Home", userData=session['user'], products=wp.get_products(), inCart=inCart, wish=wishlist)
 
 @app.route("/login", methods=['POST', 'GET'])
 def login_page():
