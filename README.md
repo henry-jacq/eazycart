@@ -12,26 +12,32 @@ Eazycart is a minimalistic and simple online shopping system.
 
 ### Installation
 
-1. Clone the repository:
+1. Clone the repository
 
    ```bash
    git clone https://github.com/henry-jacq/eazycart.git
    cd eazycart
    ```
 
-2. Install dependencies
+2. Setup Virtual Environment
+
+    ```bash
+    python -m venv env
+    ```
+
+3. Install dependencies
 
     ```bash
     pip install -r requirements.txt
     ```
 
-3. Setup the application
+4. Setup the application
 
     ```bash
     python setup.py
     ```
 
-4. Run the application
+5. Run the application
 
     ```bash
     python app.py
