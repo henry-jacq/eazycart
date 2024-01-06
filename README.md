@@ -1,6 +1,6 @@
 # Eazycart
 
-Eazycart is a minimalistic and simple online shopping system that utilizes Oracle as its database.
+Eazycart is a minimalistic and simple online shopping system.
 
 ## Features
 
